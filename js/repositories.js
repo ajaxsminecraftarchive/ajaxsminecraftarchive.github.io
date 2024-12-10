@@ -5,7 +5,7 @@ const repositories = [
 document.addEventListener("DOMContentLoaded", async function () {
   const buttonGrid = document.getElementsByClassName("buttons")[0]
 
-  let repositoriesData = []
+  let repositoriesData = new Map();
 
   for (let repository of repositories) {
     const dataUrl = `https://raw.githubusercontent.com/ajaxsminecraftarchive/${repository}/refs/heads/master/data/repository-info.json`
@@ -13,17 +13,28 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const parsedData = JSON.parse(dataContents);
 
-    repositoriesData.push(parsedData);
+    repositoriesData.set(repository, parsedData);
   }
 
   buttonGrid.innerHTML = ""
 
-  for (let data of repositoriesData) {
-    const button = document.createElement("button")
-    button.className = "entry"
-    button.innerHTML = data.displayName
-    buttonGrid.appendChild(button)
-  }
+  repositoriesData.forEach((data, repository) => {
+    const form = document.createElement("form");
+
+    const button = document.createElement("button");
+    button.className = "entry";
+    button.innerHTML = data.displayName;
+    form.appendChild(button);
+
+    buttonGrid.appendChild(form);
+
+    const encodedData = window.btoa(JSON.stringify(data));
+
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.href = `list.html?data=${encodedData}&repo=${repository}`;
+    });
+  });
 })
 
 async function fetchWebsiteContent(url) {

@@ -38,6 +38,6 @@ h2 {
     transition: background-color 0.3s;
 }
 
-.btn:hover {
+.entry:hover {
     background-color: #003366;
 }
