@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       button.addEventListener('click', (event) => {
         event.preventDefault();
-        window.location.href = `https://github.com/ajaxsminecraftarchive/resource-packs/raw/refs/heads/master/entries/${encodeURI(available)}`;
+        window.location.href = `https://github.com/ajaxsminecraftarchive/${repository}/raw/refs/heads/master/entries/${encodeURI(available)}`;
       });
     })
 
