@@ -24,8 +24,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   const availableUrl = `https://raw.githubusercontent.com/ajaxsminecraftarchive/${repository}/refs/heads/master/data/available`
   const availableContents = await fetchWebsiteContent(availableUrl);
 
-  if (data.rawDownload) {
-    const allAvailable = availableContents.split("\n")
+  if (availableContents.status != 200) {
+    const label = document.createElement("h4")
+    label.innerHTML = "There was an error fetching repository details. Please report this."
+    sub.appendChild(label)
+  } else if (data.rawDownload) {
+    const allAvailable = availableContents.text.split("\n")
 
     allAvailable.forEach((available) => {
       // To future me who will absolutely forget how gOoD JS is, if a string is empty, it is a "falsy" value (fuck this 😭)
@@ -48,6 +52,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         window.location.href = `https://github.com/ajaxsminecraftarchive/${repository}/raw/refs/heads/master/entries/${encodeURI(available)}`;
       });
     })
+
 
     sub.className = "buttons"
   } else {
@@ -76,9 +81,9 @@ async function fetchWebsiteContent(url) {
       throw new Error(`HTTP error! Status: ${response.status}`)
     }
     const text = await response.text()
-    return text
+    return {text: text, status: response.status}
   } catch (error) {
-    console.error("Error fetching website content:", error)
-    return "Error! View console for logs."
+    console.error(`Error fetching contents of "${url}": ${error}`)
+    return {text: "Error", status: -1}
   }
 }
