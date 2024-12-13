@@ -1,5 +1,5 @@
 const repositories = [
-  "resource-packs"
+  "client-jars", "client-sources", "resource-packs"
 ]
 
 document.addEventListener("DOMContentLoaded", async function () {
