@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const label = document.createElement("h4")
     label.innerHTML = "There was an error fetching repository details. Please report this."
     sub.appendChild(label)
-  } else if (data.rawDownload) {
+  } else {
     const allAvailable = availableContents.text.split("\n")
 
     allAvailable.forEach((available) => {
@@ -49,16 +49,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       button.addEventListener('click', (event) => {
         event.preventDefault();
-        window.location.href = `https://github.com/ajaxsminecraftarchive/${repository}/raw/refs/heads/master/entries/${encodeURI(available)}`;
+
+        if (data.rawDownload) {
+          window.location.href = `https://github.com/ajaxsminecraftarchive/${repository}/raw/refs/heads/master/entries/${encodeURI(available)}`;
+        } else {
+          window.location.href = `https://github.com/ajaxsminecraftarchive/${repository}/tree/master/entires/${encodeURI(available)}`;
+        }
       });
     })
-
-
-    sub.className = "buttons"
-  } else {
-    const label = document.createElement("h3")
-    label.innerHTML = "Coming soon!"
-    sub.appendChild(label)
   }
 
   const headerElement = document.createElement("h2");
