@@ -1,6 +1,5 @@
 .buttons {
   display: block;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 5px;
   min-width: 200px;
 }

@@ -65,6 +65,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   const underElement = document.createElement("h3");
   underElement.innerHTML = under;
 
+  sub.className = "buttons"
+
   container.innerHTML = ""
 
   container.appendChild(headerElement)
