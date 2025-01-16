@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       const button = document.createElement("button");
       button.className = "entry";
+      console.log(available);
       button.innerHTML = parseMinecraftFormatting(available);
       form.appendChild(button);
 
@@ -76,15 +77,26 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 async function fetchWebsiteContent(url) {
   try {
-    const response = await fetch(url)
+    const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`)
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    const text = await response.text()
-    return {text: text, status: response.status}
+
+    const contentType = response.headers.get('content-type');
+    let encoding = 'windows-1252';
+
+    const encodingMatch = contentType?.match(/charset=([^;]+)/i);
+    if (encodingMatch) {
+      encoding = encodingMatch[1];
+    }
+
+    const buffer = await response.arrayBuffer();
+    const decoder = new TextDecoder(encoding);
+    const text = decoder.decode(buffer);
+    return { text: text, status: response.status };
   } catch (error) {
-    console.error(`Error fetching contents of "${url}": ${error}`)
-    return {text: "Error", status: -1}
+    console.error(`Error fetching contents of "${url}": ${error}`);
+    return { text: "Error", status: -1 };
   }
 }
 
