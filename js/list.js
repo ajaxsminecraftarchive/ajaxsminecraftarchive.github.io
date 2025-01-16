@@ -40,8 +40,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       const button = document.createElement("button");
       button.className = "entry";
-      console.log(available);
-      button.innerHTML = parseMinecraftFormatting(available);
+
+      let drawName = available;
+      if (drawName.endsWith(".zip"))
+        drawName = drawName.substring(0, drawName.length - 4);
+      button.innerHTML = parseMinecraftFormatting(drawName);
+
       form.appendChild(button);
 
       sub.appendChild(form);
