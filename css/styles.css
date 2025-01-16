@@ -10,11 +10,11 @@ body {
 }
 
 .container {
-    background-color: #333;
+    background-color: rgba(0, 0, 0, 0.4);
     padding: 20px;
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 h2 {
@@ -24,7 +24,7 @@ h2 {
 
 .entry {
     display: block;
-    background-color: #004C99;
+    background-color: rgba(0, 0, 0, 0.4);
     border: none;
     color: white;
     padding: 10px;
@@ -38,5 +38,5 @@ h2 {
 }
 
 .entry:hover {
-    background-color: #003366;
+    background-color: #00336664;
 }
